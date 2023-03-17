@@ -415,20 +415,22 @@ Time Time::Now() {
   char line[100];
   //Open time.tct
   fp = fopen("time.txt", "r");
-  //Copy contents to line variable
-  fgets(line, sizeof(line), fp);
-  fclose(fp);
-  //Used to trim out empty chars
-  int index = strlen(line)-1;
-  char str[index];
-  //Copy values into string
-  for(int i=0; i<index; i++){
-	  str[i] = line[i];
-  }
-  //Convert string to int for tv._sec
-  //Only use if a value is in the str
-  if(sizeof(str) > 0){
-	  tv.tv_sec = atoi(str);
+  if(fp != NULL) {
+	  //Copy contents to line variable
+	  fgets(line, sizeof(line), fp);
+	  fclose(fp);
+	  //Used to trim out empty chars
+	  int index = strlen(line)-1;
+	  char str[index];
+	  //Copy values into string
+	  for(int i=0; i<index; i++){
+		  str[i] = line[i];
+	  }
+	  //Convert string to int for tv._sec
+	  //Only use if a value is in the str
+	  if(sizeof(str) > 0){
+		  tv.tv_sec = atoi(str);
+	  }
   }
   return FromTimeval(tv);
 }
